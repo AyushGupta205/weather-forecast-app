@@ -136,7 +136,7 @@ GET https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&uni
 
 ## Author
 
-**Your Name** — [GitHub](https://github.com/YOUR_USERNAME)
+**Your Name** — AyushGupta205
 
 ## License
 

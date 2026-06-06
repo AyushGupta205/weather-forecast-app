@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Modern weather forecast app with real-time data from OpenWeatherMap" />
+  <title>Weather Forecast</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Dynamic background overlay based on weather condition -->
+  <div class="background-overlay" id="backgroundOverlay" aria-hidden="true"></div>
+
+  <main class="app">
+    <!-- Header: branding and live date/time -->
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 40" width="40" height="28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 32a12 12 0 0 1 0-24 14 14 0 0 1 27.2-3.2A10 10 0 0 1 60 24a8 8 0 0 1-8 8H20z"/>
+          </svg>
+        </span>
+        <h1 class="brand-title">Weather Forecast</h1>
+      </div>
+      <p class="datetime" id="datetime" aria-live="polite"></p>
+    </header>
+
+    <!-- Search section -->
+    <section class="search-section" aria-label="City search">
+      <form class="search-form" id="searchForm" novalidate>
+        <div class="search-input-wrapper">
+          <label for="cityInput" class="visually-hidden">City name</label>
+          <input
+            type="text"
+            id="cityInput"
+            class="search-input"
+            placeholder="Search city (e.g. Delhi, Mumbai)"
+            autocomplete="off"
+            maxlength="80"
+            list="citySuggestions"
+            required
+          />
+          <datalist id="citySuggestions">
+            <option value="Delhi"></option>
+            <option value="Mumbai"></option>
+          </datalist>
+          <button type="submit" class="search-btn" id="searchBtn" aria-label="Search weather">
+            <span class="search-btn-text">Search</span>
+            <span class="search-btn-icon" aria-hidden="true">🔍</span>
+          </button>
+        </div>
+        <div class="city-suggestions" aria-label="Quick city search">
+          <span class="city-suggestions-label">Try:</span>
+          <button type="button" class="city-suggestion-btn" data-city="Delhi">Delhi</button>
+          <button type="button" class="city-suggestion-btn" data-city="Mumbai">Mumbai</button>
+        </div>
+      </form>
+
+      <!-- Recent searches from localStorage -->
+      <div class="recent-searches" id="recentSearches" hidden>
+        <h2 class="recent-title">Recent Searches</h2>
+        <ul class="recent-list" id="recentList" role="list"></ul>
+      </div>
+    </section>
+
+    <!-- Loading hidden from UI; fetch still runs in background via script.js -->
+    <div class="loading" id="loading" hidden aria-hidden="true"></div>
+
+    <!-- Error message -->
+    <div class="error-message" id="errorMessage" role="alert" hidden></div>
+
+    <!-- Weather information card -->
+    <section class="weather-card" id="weatherCard" hidden aria-label="Current weather">
+      <div class="weather-header">
+        <div class="location">
+          <h2 class="city-name" id="cityName"></h2>
+          <p class="country" id="country"></p>
+        </div>
+        <img
+          class="weather-icon"
+          id="weatherIcon"
+          src=""
+          alt=""
+          width="100"
+          height="100"
+        />
+      </div>
+
+      <div class="weather-main">
+        <p class="temperature" id="temperature"></p>
+        <p class="condition" id="condition"></p>
+        <p class="feels-like" id="feelsLike"></p>
+      </div>
+
+      <div class="weather-details">
+        <div class="detail-item">
+          <span class="detail-label">Humidity</span>
+          <span class="detail-value" id="humidity"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Wind Speed</span>
+          <span class="detail-value" id="windSpeed"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Pressure</span>
+          <span class="detail-value" id="pressure"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- API key setup hint (shown only when key is missing) -->
+    <aside class="api-hint" id="apiHint" hidden>
+      <p>
+        Add your OpenWeatherMap API key in <code>script.js</code> (variable
+        <code>API_KEY</code>). Get a free key at
+        <a href="https://openweathermap.org/api" target="_blank" rel="noopener noreferrer">
+          openweathermap.org/api
+        </a>.
+      </p>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <p>Powered by <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeatherMap</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
